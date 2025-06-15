@@ -3,6 +3,7 @@ package com.globerate.app.ui.screens.home.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.globerate.app.BuildConfig
 import com.globerate.app.data.model.CurrencyResponse
 import com.globerate.app.data.remote.CurrencyApiService
 import com.globerate.app.ui.screens.home.viewmodel.states.RatesUiState
@@ -12,10 +13,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlin.text.uppercase
 
-class HomeViewModel(private var apiService: CurrencyApiService) : ViewModel() {
+class HomeViewModel: ViewModel() {
 
-    private val apiKey = "a4a4eea86e534c8698807763c44e3c14"
-    // private val apiService = RetrofitInstance.api
+    private val apiKey = BuildConfig.API_KEY
+    private val apiService = RetrofitInstance.api
 
     private val _ratesUiState = MutableStateFlow<RatesUiState>(RatesUiState.Idle)
     val ratesUiState: StateFlow<RatesUiState> = _ratesUiState

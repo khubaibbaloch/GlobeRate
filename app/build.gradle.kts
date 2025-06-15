@@ -1,12 +1,24 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
+val apikeyPropertiesFile = rootProject.file("apikeys.properties")
+val apikeyProperties = Properties().apply {
+    load(FileInputStream(apikeyPropertiesFile))
+}
+
 android {
     namespace = "com.globerate.app"
     compileSdk = 35
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.globerate.app"
@@ -16,6 +28,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"${apikeyProperties["API_KEY"]}\"")
+
     }
 
     buildTypes {
