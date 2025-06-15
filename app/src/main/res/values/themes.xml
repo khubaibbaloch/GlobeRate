@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.GlobeRate" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/globe_rate_logo</item>
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+        <item name="postSplashScreenTheme">@style/Theme.GlobeRate</item>
+    </style>
+</resources>
