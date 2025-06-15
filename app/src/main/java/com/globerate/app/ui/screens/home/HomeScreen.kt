@@ -132,10 +132,10 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                     }
 
                     // Optional info
-                    Text(
-                        text = "ListSize: ${currencyList.size} Date: $date",
-                        style = MaterialTheme.typography.bodySmall
-                    )
+//                    Text(
+//                        text = "Date: $date",
+//                        style = MaterialTheme.typography.bodySmall
+//                    )
                 }
 
                 is RatesUiState.Error -> {
