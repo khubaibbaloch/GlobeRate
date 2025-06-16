@@ -40,7 +40,7 @@ import com.globerate.app.ui.screens.home.viewmodel.states.RatesUiState
 fun HomeScreen(homeViewModel: HomeViewModel) {
 
     val fromCurrency = remember { mutableStateOf("USD") }
-    val toCurrency = remember { mutableStateOf("INR") }
+    val toCurrency = remember { mutableStateOf("PKR") }
     val amount = remember { mutableStateOf("") }
     val result = remember { mutableStateOf("") }
 
