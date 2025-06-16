@@ -1,19 +1,18 @@
 package com.globerate.app.ui.screens.home.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.globerate.app.BuildConfig
-import com.globerate.app.data.model.CurrencyResponse
-import com.globerate.app.data.remote.CurrencyApiService
 import com.globerate.app.ui.screens.home.viewmodel.states.RatesUiState
 import com.globerate.app.utils.RetrofitInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlin.text.uppercase
 
-class HomeViewModel: ViewModel() {
+
+class HomeViewModel : ViewModel() {
 
     private val apiKey = BuildConfig.API_KEY
     private val apiService = RetrofitInstance.api
@@ -51,90 +50,37 @@ class HomeViewModel: ViewModel() {
                     _ratesUiState.value = RatesUiState.Error(message = response.message())
                 }
             } catch (e: Exception) {
+                Log.d("ApiResponse", "fetchRates: $e")
                 _ratesUiState.value = RatesUiState.Error("Unable to fetch the data")
             }
         }
     }
 
-//    @SuppressLint("DefaultLocale")
-//    fun calculateConversion(
-//        amountInput: String,
-//        fromCurrency: String,
-//        toCurrency: String,
-//        rates: Map<String, String>,
-//    ): String {
-//        val fromRate = rates[fromCurrency]?.toDoubleOrNull()
-//        val toRate = rates[toCurrency]?.toDoubleOrNull()
-//        val amt = amountInput.toDoubleOrNull()
-//
-//        return if (fromRate != null && toRate != null && amt != null) {
-//            val converted = (toRate / fromRate) * amt
-//            String.format("%.2f", converted)
-//        } else {
-//            ""
-//        }
-//    }
-//@SuppressLint("DefaultLocale")
-//fun calculateConversion(
-//    amountInput: String,
-//    fromCurrency: String,
-//    toCurrency: String,
-//    rates: Map<String, String>
-//): String {
-//    val amount = amountInput.toDoubleOrNull()
-//    if (amount == null || amount < 0) return ""
-//
-//    val fromRate = rates[fromCurrency]?.toDoubleOrNull() ?: return ""
-//    val toRate = rates[toCurrency]?.toDoubleOrNull() ?: return ""
-//
-//    val baseAmount = amount / fromRate
-//    val result = baseAmount * toRate
-//    return String.format("%.2f", result)
-//}
-//    @SuppressLint("DefaultLocale")
-//    fun calculateConversion(
-//        amountInput: String,
-//        fromCurrency: String,
-//        toCurrency: String,
-//        rates: Map<String, String>
-//    ): String {
-//        val amount = amountInput.toDoubleOrNull()
-//        val fromRate = rates[fromCurrency]?.toDoubleOrNull()
-//        val toRate = rates[toCurrency]?.toDoubleOrNull()
-//
-//        if (
-//            amount == null || amount < 0 || fromRate == null || toRate == null ||
-//            amount.isInfinite() || fromRate.isInfinite() || toRate.isInfinite()
-//        ) return ""
-//
-//        val baseAmount = amount / fromRate
-//        val result = baseAmount * toRate
-//        return String.format("%.2f", result)
-//    }
 
-    @SuppressLint("DefaultLocale")
-    fun calculateConversion(
-        amountInput: String,
-        fromCurrency: String,
-        toCurrency: String,
-        rates: Map<String, String>
-    ): String {
-        val amount = amountInput.toDoubleOrNull()
-        val fromRate = rates[fromCurrency]?.toDoubleOrNull()
-        val toRate = rates[toCurrency]?.toDoubleOrNull()
 
-        if (
-            amount == null || amount < 0 ||
-            fromRate == null || fromRate == 0.0 ||
-            toRate == null || toRate == 0.0 ||
-            amount.isInfinite() || fromRate.isInfinite() || toRate.isInfinite() ||
-            amount.isNaN() || fromRate.isNaN() || toRate.isNaN()
-        ) return ""
+@SuppressLint("DefaultLocale")
+fun calculateConversion(
+    amountInput: String,
+    fromCurrency: String,
+    toCurrency: String,
+    rates: Map<String, String>,
+): String {
+    val amount = amountInput.toDoubleOrNull()
+    val fromRate = rates[fromCurrency]?.toDoubleOrNull()
+    val toRate = rates[toCurrency]?.toDoubleOrNull()
 
-        val baseAmount = amount / fromRate
-        val result = baseAmount * toRate
-        return String.format("%.2f", result)
-    }
+    if (
+        amount == null || amount < 0 ||
+        fromRate == null || fromRate == 0.0 ||
+        toRate == null || toRate == 0.0 ||
+        amount.isInfinite() || fromRate.isInfinite() || toRate.isInfinite() ||
+        amount.isNaN() || fromRate.isNaN() || toRate.isNaN()
+    ) return ""
+
+    val baseAmount = amount / fromRate
+    val result = baseAmount * toRate
+    return String.format("%.2f", result)
+}
 
 
 }

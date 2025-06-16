@@ -19,3 +19,31 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Retrofit (keep data models and service interfaces)
+-keep class com.globerate.app.data.model.** { *; }
+-keep interface com.globerate.app.data.remote.** { *; }
+
+# Retrofit generic type fix
+-keepattributes Signature
+-keepattributes *Annotation*
+
+# Retrofit/Gson keep annotations
+-keep class com.google.gson.annotations.SerializedName
+
+# ViewModel and StateFlow
+-keep class androidx.lifecycle.ViewModel { *; }
+-keep class kotlinx.coroutines.flow.** { *; }
+
+# If using sealed classes like RatesUiState
+-keep class com.globerate.app.ui.screens.home.viewmodel.states.RatesUiState {
+    *;
+}
+-keep class com.globerate.app.ui.screens.home.viewmodel.states.RatesUiState$* {
+    *;
+}
+
+-keep class retrofit2.** { *; }
+-keep interface com.globerate.app.data.remote.CurrencyApiService { *; }
+
+
